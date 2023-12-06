@@ -8,17 +8,30 @@ import './App.css';
 function App() {
 
 const [showParagraph, setShowParagraph] = useState(false);
+const [allowToggle, setAllowToggle] = useState(false);
 
 // ? ! useCallback()
 // ! useCallback() => Functoion inside the  useCallback() will not created again if the dependencies are not changed
 // ! useCallback() => is used to prevent the component function from re-executing if the dependencies are not changed
 // ! It will not create new function for every execution. It use same memory address to upate the changes in memory instead of creating new function(new memory address)
 // ! useCallback() => React will save the function memory addresss internally and always reuse the same memory address when the function re-executes
+// ! useCallback() => [] dependencies are same as useEffect();
+// !useCallback () => Allow us to save a function and reuse it.
 const toggleParagraphHandler = useCallback(() => {
   // ! setShowParagraph() always use the same function memory address
   //  ! so that button will not re-executed when apply React.memo()
-  setShowParagraph((prevShowParagraph) => !prevShowParagraph);
-}, [])
+  // ! here the allowToggle is closure it holds the previous value when the app is executed at first time
+  // ! .. if we changed the allowToggle => as true at that time also it holds the previous value so that it will not re-executed
+  // ! .. to prevent that we use dependencies[] to mention if any changes in the dependencies then re-executed it 
+  // ! .. this ensure that it will use the latest value
+  if(allowToggle){
+    setShowParagraph((prevShowParagraph) => !prevShowParagraph);
+  }
+}, [allowToggle])
+
+const allowToggleHandler = () => {
+  setAllowToggle(true);
+}
 
   console.log('App Running');
   // ! App component Returns JSX is a function that returns HTML
@@ -30,7 +43,8 @@ const toggleParagraphHandler = useCallback(() => {
   return (
     <div className="app">
       <h1>Hi there!</h1>
-     <DemoOutput show={false}/>
+     <DemoOutput show={showParagraph}/>
+     <Button onClick={allowToggleHandler}>Allow Toggle</Button>
       <Button onClick={toggleParagraphHandler}>Toggle Paragraph</Button>
     </div>
   );
