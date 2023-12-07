@@ -6,7 +6,10 @@ import './App.css';
 
 // ! When the Component state changes, the APP component re-executes and children are also re-rendered and re-evaluated
 function App() {
-
+  // * useState()
+// ! useState is managed by React and connection with the component for us
+//  ! useState() =>  default value is essentially consider once when the component is executed first time
+// ! .... If it executes first time then the useState() create a new state variable and set it to default value
 const [showParagraph, setShowParagraph] = useState(false);
 const [allowToggle, setAllowToggle] = useState(false);
 
