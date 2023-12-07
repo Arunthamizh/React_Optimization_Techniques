@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import Button from './components/UI/Button/Button';
 import DemoOutput from './components/Demo/DemoOutput';
 import './App.css';
@@ -45,10 +45,20 @@ const allowToggleHandler = () => {
 
   // ! If the App component is re-executed, the children are re-executed and re-evaluated
 
+
+  // * useMemo()
+  // ! useMemo() useMemo is a React hook that is used to memoize the result of a computation. 
+  // ! ... It helps in optimizing performance by memoizing the value and preventing unnecessary recalculations, 
+  // !... especially in situations where the calculation might be computationally expensive.
+  // ! useMemo() => this listItems useMemo() will create a array at first time or if the dependencies are changed
+  const listItems = useMemo(() => {
+   return [9,54,78,100,2]
+  }, [])
+
   return (
     <div className="app">
       <h1>Hi there!</h1>
-     <DemoOutput show={showParagraph}/>
+     <DemoOutput show={showParagraph} items={listItems} />
      <Button onClick={allowToggleHandler}>Allow Toggle</Button>
       <Button onClick={toggleParagraphHandler}>Toggle Paragraph</Button>
     </div>
