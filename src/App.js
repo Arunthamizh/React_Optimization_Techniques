@@ -10,6 +10,8 @@ function App() {
 // ! useState is managed by React and connection with the component for us
 //  ! useState() =>  default value is essentially consider once when the component is executed first time
 // ! .... If it executes first time then the useState() create a new state variable and set it to default value
+// ! If we update 2 state in a function one after another then react batched(grouped) it and consider as one so it re-executes and evaluates onces 
+// ! ... even though we update 2 state in a function one after another then react batched(grouped) it and consider as one so it re-executes and evaluates onces
 const [showParagraph, setShowParagraph] = useState(false);
 const [allowToggle, setAllowToggle] = useState(false);
 
